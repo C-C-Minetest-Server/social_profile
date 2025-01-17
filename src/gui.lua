@@ -360,13 +360,20 @@ local tab_funcs = {
         ctx.form.search = string.trim(ctx.form.search)
         ctx.form.search = string.lower(ctx.form.search)
         ctx.search_matches = nil
+
+        local errmsg = ""
         local matches = {}
         if ctx.form.search == "" then
             matches[#matches + 1] = S("Type your search terms...")
         else
             for name in auth.iterate() do
-                if string.match(string.lower(name), ctx.form.search) then
+                if string.find(string.lower(name), ctx.form.search, nil, true) then
                     matches[#matches + 1] = name
+                end
+
+                if #matches >= 100 then
+                    errmsg = S("Limited to the first 100 results. \nPlease use a more specific search term.")
+                    break
                 end
             end
             if #matches == 0 then
@@ -423,7 +430,10 @@ local tab_funcs = {
                         end
                     end,
                 } or gui.Nil {},
-            }
+            },
+            gui.Label {
+                label = errmsg,
+            },
         }
     end,
 }
