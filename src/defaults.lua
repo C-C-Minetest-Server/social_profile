@@ -73,6 +73,12 @@ social_profile.register_field("pronouns", {
             },
         }
     end,
+    process_form = function(_, ctx)
+        local pronouns = ctx.form.pronouns
+        pronouns = string.trim(pronouns)
+        pronouns = social_profile.normalized_pronouns[pronouns] or pronouns
+        return pronouns
+    end,
     priority = -30,
 })
 

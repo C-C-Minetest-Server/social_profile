@@ -1,0 +1,1 @@
+social_profile.announce.pronouns (Announce player pronouns on join) bool true

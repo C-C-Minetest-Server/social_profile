@@ -51,17 +51,21 @@ function social_profile.can_modify_profile(actor, target)
     end
 end
 
+social_profile.normalized_pronouns = {
+    ["he"] = "he/him",
+    ["him"] = "he/him",
+
+    ["she"] = "she/her",
+    ["her"] = "she/her",
+
+    ["they"] = "they/them",
+    ["them"] = "they/them",
+}
 social_profile.recognized_pronouns = {
-    ["he"] = S("he/him"),
-    ["him"] = S("he/him"),
     ["he/him"] = S("he/him"),
 
-    ["she"] = S("she/her"),
-    ["her"] = S("she/her"),
     ["she/her"] = S("she/her"),
 
-    ["they"] = S("they/them"),
-    ["them"] = S("they/them"),
     ["they/them"] = S("they/them"),
 
     ["he/they"] = S("he/they"),

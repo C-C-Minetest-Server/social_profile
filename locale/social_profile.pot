@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-17 15:46+0800\n"
+"POT-Creation-Date: 2025-01-17 16:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,32 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/api.lua:55 src/api.lua:56 src/api.lua:57
+#: src/api.lua:65
 msgid "he/him"
 msgstr ""
 
-#: src/api.lua:59 src/api.lua:60 src/api.lua:61
+#: src/api.lua:67
 msgid "she/her"
 msgstr ""
 
-#: src/api.lua:63 src/api.lua:64 src/api.lua:65
+#: src/api.lua:69
 msgid "they/them"
 msgstr ""
 
-#: src/api.lua:67
+#: src/api.lua:71
 msgid "he/they"
 msgstr ""
 
-#: src/api.lua:68
+#: src/api.lua:72
 msgid "she/they"
 msgstr ""
 
-#: src/api.lua:69
+#: src/api.lua:73
 msgid "he/she"
 msgstr ""
 
-#: src/api.lua:70
+#: src/api.lua:74
 msgid "he/they/she"
+msgstr ""
+
+#: src/callbacks.lua:18
+msgid "The pronouns of @1 is @2."
 msgstr ""
 
 #: src/chatcommand.lua:9
@@ -77,70 +81,70 @@ msgstr ""
 msgid "Presets..."
 msgstr ""
 
-#: src/defaults.lua:80
+#: src/defaults.lua:86
 msgid "Company"
 msgstr ""
 
-#: src/defaults.lua:85
+#: src/defaults.lua:91
 msgid "Location"
 msgstr ""
 
-#: src/defaults.lua:93
+#: src/defaults.lua:99
 msgid "Mail"
 msgstr ""
 
-#: src/gui.lua:18
-msgid "Internal Error"
-msgstr ""
-
-#: src/gui.lua:28
-msgid "Invalid tab: @1"
-msgstr ""
-
-#: src/gui.lua:42 src/gui.lua:52 src/gui.lua:219 src/gui.lua:229
-msgid "Player not found: @1"
-msgstr ""
-
-#: src/gui.lua:129
+#: src/gui.lua:43
 msgid "@1: @2"
 msgstr ""
 
-#: src/gui.lua:167 src/gui.lua:375
+#: src/gui.lua:61
+msgid "Internal Error"
+msgstr ""
+
+#: src/gui.lua:71
+msgid "Invalid tab: @1"
+msgstr ""
+
+#: src/gui.lua:128 src/gui.lua:138 src/gui.lua:227 src/gui.lua:237
+msgid "Player not found: @1"
+msgstr ""
+
+#: src/gui.lua:175 src/gui.lua:383
 msgid "Search"
 msgstr ""
 
-#: src/gui.lua:176
+#: src/gui.lua:184
 msgid "Edit"
 msgstr ""
 
-#: src/gui.lua:188
+#: src/gui.lua:196
 msgid "Social profile of @1"
 msgstr ""
 
-#: src/gui.lua:239 src/gui.lua:249
+#: src/gui.lua:247 src/gui.lua:257
 msgid "Insufficant permission to edit profile: @1"
 msgstr ""
 
-#: src/gui.lua:258
+#: src/gui.lua:266
 msgid "Editing social profile: @1"
 msgstr ""
 
-#: src/gui.lua:302
+#: src/gui.lua:310
 msgid "Save"
 msgstr ""
 
-#: src/gui.lua:341
+#: src/gui.lua:349
 msgid "Type your search terms..."
 msgstr ""
 
-#: src/gui.lua:349
+#: src/gui.lua:357
 msgid "No matches."
 msgstr ""
 
-#: src/gui.lua:358
+#: src/gui.lua:366
 msgid "Searching player"
 msgstr ""
 
-#: src/gui.lua:392
+#: src/gui.lua:400
 msgid "Go"
 msgstr ""
