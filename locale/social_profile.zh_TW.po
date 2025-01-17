@@ -1,0 +1,145 @@
+# Chinese translations for PACKAGE package.
+# Copyright (C) 2025 1F616EMO <root@1f616emo.xyz>
+# This file is distributed under the same license as the PACKAGE package.
+# 1F616EMO <root@1f616emo.xyz>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-17 15:46+0800\n"
+"PO-Revision-Date: 2025-01-17 11:29+0800\n"
+"Last-Translator: 1F616EMO <root@1f616emo.xyz>\n"
+"Language-Team: Chinese (traditional) <zh-l10n@lists.slat.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/api.lua:55 src/api.lua:56 src/api.lua:57
+msgid "he/him"
+msgstr "他"
+
+#: src/api.lua:59 src/api.lua:60 src/api.lua:61
+msgid "she/her"
+msgstr "她"
+
+#: src/api.lua:63 src/api.lua:64 src/api.lua:65
+msgid "they/them"
+msgstr "TA"
+
+#: src/api.lua:67
+msgid "he/they"
+msgstr "他/TA"
+
+#: src/api.lua:68
+msgid "she/they"
+msgstr "她/TA"
+
+#: src/api.lua:69
+msgid "he/she"
+msgstr "他/她"
+
+#: src/api.lua:70
+msgid "he/they/she"
+msgstr "他/TA/她"
+
+#: src/chatcommand.lua:9
+msgid "Open social profile of youself or another player"
+msgstr "開啓您或其他玩家的社交資料"
+
+#: src/chatcommand.lua:13
+msgid "You must be online to run this command."
+msgstr "運行此命令時，您必須在線。"
+
+#: src/chatcommand.lua:19
+msgid "Player @1 does not exist."
+msgstr "玩家@1不存在。"
+
+#: src/defaults.lua:12 src/defaults.lua:29
+msgid "Bio"
+msgstr "個人簡介"
+
+#: src/defaults.lua:15
+msgid "Nothing here yet~"
+msgstr "還沒有東西喔～"
+
+#: src/defaults.lua:38
+msgid "Real name"
+msgstr "真實名稱"
+
+#: src/defaults.lua:43 src/defaults.lua:57
+msgid "Pronouns"
+msgstr "人稱代詞"
+
+#: src/defaults.lua:48
+msgid "Presets..."
+msgstr "預設選項……"
+
+#: src/defaults.lua:80
+msgid "Company"
+msgstr "公司"
+
+#: src/defaults.lua:85
+msgid "Location"
+msgstr "地址"
+
+#: src/defaults.lua:93
+msgid "Mail"
+msgstr "電郵"
+
+#: src/gui.lua:18
+msgid "Internal Error"
+msgstr "內部錯誤"
+
+#: src/gui.lua:28
+msgid "Invalid tab: @1"
+msgstr "無效的頁面：@1"
+
+#: src/gui.lua:42 src/gui.lua:52 src/gui.lua:219 src/gui.lua:229
+msgid "Player not found: @1"
+msgstr "玩家不存在：@1"
+
+#: src/gui.lua:129
+msgid "@1: @2"
+msgstr "@1：@2"
+
+#: src/gui.lua:167 src/gui.lua:375
+msgid "Search"
+msgstr "搜尋"
+
+#: src/gui.lua:176
+msgid "Edit"
+msgstr "編輯"
+
+#: src/gui.lua:188
+msgid "Social profile of @1"
+msgstr "@1的社交資料"
+
+#: src/gui.lua:239 src/gui.lua:249
+msgid "Insufficant permission to edit profile: @1"
+msgstr "權限不足，無法編輯社交資料：@1"
+
+#: src/gui.lua:258
+msgid "Editing social profile: @1"
+msgstr "編輯社交資料：@1"
+
+#: src/gui.lua:302
+msgid "Save"
+msgstr "儲存"
+
+#: src/gui.lua:341
+msgid "Type your search terms..."
+msgstr "輸入搜尋條件……"
+
+#: src/gui.lua:349
+msgid "No matches."
+msgstr "找不到符合的玩家。"
+
+#: src/gui.lua:358
+msgid "Searching player"
+msgstr "搜尋玩家"
+
+#: src/gui.lua:392
+msgid "Go"
+msgstr "前往"
