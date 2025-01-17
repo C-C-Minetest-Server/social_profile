@@ -120,6 +120,21 @@ local tab_funcs = {
             }
         end
 
+        local privs = core.get_player_privs(ctx.curr_name)
+        local privs_disp = {}
+        for _, entry in ipairs(social_profile.registered_roles) do
+            if privs[entry[1]] then
+                privs_disp[#privs_disp+1] = entry[2]
+            end
+        end
+        if #privs_disp == 0 then
+            privs_disp = gui.Nil {}
+        else
+            privs_disp = gui.Label {
+                label = table.concat(privs_disp, S(", ")),
+            }
+        end
+
         local info_rows = social_profile.render_info(player, ctx, ctx.curr_name)
         if not info_rows then
             return gui.VBox {
@@ -209,6 +224,7 @@ local tab_funcs = {
                     font_size = "*1.5",
                 },
             },
+            privs_disp,
             gui.HBox {
                 skins_display,
                 gui.VBox(info_rows)

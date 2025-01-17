@@ -110,5 +110,30 @@ end
 social_profile.registered_buttons = {}
 
 function social_profile.register_button(def)
-    social_profile.registered_buttons[#social_profile.registered_buttons+1] = def
+    social_profile.registered_buttons[#social_profile.registered_buttons + 1] = def
 end
+
+social_profile.registered_roles = {
+    { "server", S("Server owner"), -10 },
+    { "ban",    S("Moderator"),    -20 },
+}
+function social_profile.register_role(privilege, display, priority)
+    social_profile.registered_roles[#social_profile.registered_roles + 1] = { privilege, display, priority }
+end
+
+core.register_on_mods_loaded(function()
+    table.sort(social_profile.registered_fields_order, function(a, b)
+        local priority_a = social_profile.registered_fields[a].priority
+        local priority_b = social_profile.registered_fields[b].priority
+
+        if priority_a == priority_b then
+            return a > b
+        end
+
+        return priority_a > priority_b
+    end)
+
+    table.sort(social_profile.registered_roles, function(a, b)
+        return a[3] > b[3]
+    end)
+end)

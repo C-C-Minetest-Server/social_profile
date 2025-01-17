@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-17 16:13+0800\n"
+"POT-Creation-Date: 2025-01-17 17:07+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,14 @@ msgstr ""
 
 #: src/api.lua:74
 msgid "he/they/she"
+msgstr ""
+
+#: src/api.lua:117
+msgid "Server owner"
+msgstr ""
+
+#: src/api.lua:118
+msgid "Moderator"
 msgstr ""
 
 #: src/callbacks.lua:18
@@ -105,46 +113,50 @@ msgstr ""
 msgid "Invalid tab: @1"
 msgstr ""
 
-#: src/gui.lua:128 src/gui.lua:138 src/gui.lua:227 src/gui.lua:237
+#: src/gui.lua:134
+msgid ", "
+msgstr ""
+
+#: src/gui.lua:143 src/gui.lua:153 src/gui.lua:243 src/gui.lua:253
 msgid "Player not found: @1"
 msgstr ""
 
-#: src/gui.lua:175 src/gui.lua:383
+#: src/gui.lua:190 src/gui.lua:399
 msgid "Search"
 msgstr ""
 
-#: src/gui.lua:184
+#: src/gui.lua:199
 msgid "Edit"
 msgstr ""
 
-#: src/gui.lua:196
+#: src/gui.lua:211
 msgid "Social profile of @1"
 msgstr ""
 
-#: src/gui.lua:247 src/gui.lua:257
+#: src/gui.lua:263 src/gui.lua:273
 msgid "Insufficant permission to edit profile: @1"
 msgstr ""
 
-#: src/gui.lua:266
+#: src/gui.lua:282
 msgid "Editing social profile: @1"
 msgstr ""
 
-#: src/gui.lua:310
+#: src/gui.lua:326
 msgid "Save"
 msgstr ""
 
-#: src/gui.lua:349
+#: src/gui.lua:365
 msgid "Type your search terms..."
 msgstr ""
 
-#: src/gui.lua:357
+#: src/gui.lua:373
 msgid "No matches."
 msgstr ""
 
-#: src/gui.lua:366
+#: src/gui.lua:382
 msgid "Searching player"
 msgstr ""
 
-#: src/gui.lua:400
+#: src/gui.lua:416
 msgid "Go"
 msgstr ""
