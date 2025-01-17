@@ -8,6 +8,49 @@ local social_profile = social_profile
 local S = core.get_translator("social_profile")
 local gui = flow.widgets
 
+function social_profile.render_info(player, ctx, name)
+    local profile = social_profile.get_social_profile(name)
+    if not profile then return false end
+
+    local info_rows = {}
+    for _, field_name in ipairs(social_profile.registered_fields_order) do
+        local def = social_profile.registered_fields[field_name]
+
+        if not def.hide then
+            local value
+            if def.get_value then
+                value = def.get_value(name, profile)
+            else
+                value = profile[field_name]
+            end
+
+            if (value ~= "" and value ~= nil) or def.show_on_value then
+                if value == nil then
+                    value = ""
+                end
+
+                if def.get_display_value then
+                    value = def.get_display_value(value)
+                    assert(type(value) == "string",
+                        "Invalid return type of get_display_value (string expected, got " .. type(value) .. ")")
+                end
+
+                local row
+                if def.get_display_row then
+                    row = def.get_display_row(player, ctx, value)
+                else
+                    row = gui.Label {
+                        label = S("@1: @2", def.title or field_name, value),
+                    }
+                end
+
+                info_rows[#info_rows + 1] = row
+            end
+        end
+    end
+    return info_rows
+end
+
 local auth
 
 local tab_funcs = {
@@ -33,27 +76,6 @@ local tab_funcs = {
 
     view = function(player, ctx)
         ctx.curr_name = ctx.curr_name or player:get_player_name()
-
-        local profile = social_profile.get_social_profile(ctx.curr_name)
-        if not profile then
-            return gui.VBox {
-                gui.HBox {
-                    gui.Label {
-                        label = S("Player not found: @1", ctx.curr_name),
-                        expand = true, align_h = "left",
-                    },
-                    gui.ButtonExit {
-                        w = 0.7, h = 0.7,
-                        label = "x",
-                    },
-                },
-                gui.Box { w = 0.05, h = 0.05, color = "grey" },
-                gui.Label {
-                    label = S("Player not found: @1", ctx.curr_name),
-                    expand = true, align_h = "center",
-                }
-            }
-        end
 
         local skins_display
         if core.global_exists("skins") then
@@ -98,42 +120,28 @@ local tab_funcs = {
             }
         end
 
-        local info_rows = { w = 7 }
-        for _, field_name in ipairs(social_profile.registered_fields_order) do
-            local def = social_profile.registered_fields[field_name]
-
-            if not def.hide then
-                local value
-                if def.get_value then
-                    value = def.get_value(ctx.curr_name, profile)
-                else
-                    value = profile[field_name]
-                end
-
-                if (value ~= "" and value ~= nil) or def.show_on_value then
-                    if value == nil then
-                        value = ""
-                    end
-
-                    if def.get_display_value then
-                        value = def.get_display_value(value)
-                        assert(type(value) == "string",
-                            "Invalid return type of get_display_value (string expected, got " .. type(value) .. ")")
-                    end
-
-                    local row
-                    if def.get_display_row then
-                        row = def.get_display_row(player, ctx, value)
-                    else
-                        row = gui.Label {
-                            label = S("@1: @2", def.title or field_name, value),
-                        }
-                    end
-
-                    info_rows[#info_rows + 1] = row
-                end
-            end
+        local info_rows = social_profile.render_info(player, ctx, ctx.curr_name)
+        if not info_rows then
+            return gui.VBox {
+                gui.HBox {
+                    gui.Label {
+                        label = S("Player not found: @1", ctx.curr_name),
+                        expand = true, align_h = "left",
+                    },
+                    gui.ButtonExit {
+                        w = 0.7, h = 0.7,
+                        label = "x",
+                    },
+                },
+                gui.Box { w = 0.05, h = 0.05, color = "grey" },
+                gui.Label {
+                    label = S("Player not found: @1", ctx.curr_name),
+                    expand = true, align_h = "center",
+                }
+            }
         end
+
+        info_rows.w = 7
 
         local button_row = {}
         local button_width = 0
