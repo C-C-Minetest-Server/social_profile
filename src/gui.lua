@@ -51,6 +51,76 @@ function social_profile.render_info(player, ctx, name)
     return info_rows
 end
 
+function social_profile.render_edit_form(player, ctx, name, init)
+    local profile = social_profile.get_social_profile(name)
+    if not profile then
+        return false, S("Player not found: @1", name)
+    elseif not social_profile.can_modify_profile(player:get_player_name(), name) then
+        return false, S("Insufficant permission to edit profile: @1", name)
+    end
+
+    local edit_rows = {}
+    for _, field_name in ipairs(social_profile.registered_fields_order) do
+        local def = social_profile.registered_fields[field_name]
+        if not def.disallow_edit then
+            if init then
+                if def.init_form then
+                    def.init_form(player, ctx)
+                else
+                    ctx.form[field_name] = nil
+                end
+            end
+
+            local value
+            if def.get_value then
+                value = def.get_value(ctx.curr_name, profile)
+            else
+                value = profile[field_name]
+            end
+
+            local row
+            if def.get_edit_row then
+                row = def.get_edit_row(player, ctx, value)
+            else
+                row = gui.Field {
+                    name = field_name,
+                    label = def.title or field_name,
+                    default = value
+                }
+            end
+
+            edit_rows[#edit_rows + 1] = row
+        end
+    end
+
+    return gui.VBox(edit_rows)
+end
+
+function social_profile.handle_edit_form(player, ctx, name)
+    if social_profile.can_modify_profile(player:get_player_name(), name) then
+        local new_profile = {}
+        for key, def in pairs(social_profile.registered_fields) do
+            if not def.disallow_edit then
+                local value
+                if def.process_form then
+                    value = def.process_form(player, ctx)
+                else
+                    value = string.trim(ctx.form[key])
+                end
+
+                if value == "" then
+                    value = nil
+                end
+
+                new_profile[key] = value
+            end
+        end
+        social_profile.set_social_profile(name, new_profile)
+        return true
+    end
+    return false
+end
+
 local auth
 
 local tab_funcs = {
@@ -232,15 +302,15 @@ local tab_funcs = {
             gui.HBox(bottom_row),
         }
     end,
-    edit = function(player, ctx, changed)
+    edit = function(player, ctx, init)
         ctx.curr_name = ctx.curr_name or player:get_player_name()
 
-        local profile = social_profile.get_social_profile(ctx.curr_name)
-        if not profile then
+        local edit_rows, errmsg = social_profile.render_edit_form(player, ctx, ctx.curr_name, init)
+        if not edit_rows then
             return gui.VBox {
                 gui.HBox {
                     gui.Label {
-                        label = S("Player not found: @1", ctx.curr_name),
+                        label = errmsg,
                         expand = true, align_h = "left",
                     },
                     gui.ButtonExit {
@@ -250,109 +320,40 @@ local tab_funcs = {
                 },
                 gui.Box { w = 0.05, h = 0.05, color = "grey" },
                 gui.Label {
-                    label = S("Player not found: @1", ctx.curr_name),
+                    label = errmsg,
                     expand = true, align_h = "center",
                 }
             }
         end
 
-        if not social_profile.can_modify_profile(player:get_player_name(), ctx.curr_name) then
-            return gui.VBox {
-                gui.HBox {
-                    gui.Label {
-                        label = S("Insufficant permission to edit profile: @1", ctx.curr_name),
-                        expand = true, align_h = "left",
-                    },
-                    gui.ButtonExit {
-                        w = 0.5, h = 0.5,
-                        label = "x",
-                    },
-                },
-                gui.Box { w = 0.05, h = 0.05, color = "grey" },
+        return gui.VBox {
+            w = 9,
+            gui.HBox {
                 gui.Label {
-                    label = S("Insufficant permission to edit profile: @1", ctx.curr_name),
-                    expand = true, align_h = "center",
-                }
-            }
-        end
-
-        local edit_rows = { w = 9 }
-        edit_rows[#edit_rows + 1] = gui.HBox {
-            gui.Label {
-                label = S("Editing social profile: @1", ctx.curr_name),
-                expand = true, align_h = "left",
+                    label = S("Editing social profile: @1", ctx.curr_name),
+                    expand = true, align_h = "left",
+                },
+                gui.ButtonExit {
+                    w = 0.5, h = 0.5,
+                    label = "x",
+                },
             },
-            gui.ButtonExit {
-                w = 0.5, h = 0.5,
-                label = "x",
+            gui.Box { w = 0.05, h = 0.05, color = "grey" },
+
+            edit_rows,
+
+            gui.Button {
+                label = S("Save"),
+                w = 3, h = 1,
+                expand = true, align_h = "right",
+                on_event = function(e_player, e_ctx)
+                    if social_profile.handle_edit_form(e_player, e_ctx, e_ctx.curr_name) then
+                        e_ctx.tab = "view"
+                    end
+                    return true
+                end,
             },
         }
-        edit_rows[#edit_rows + 1] = gui.Box { w = 0.05, h = 0.05, color = "grey" }
-
-        for _, field_name in ipairs(social_profile.registered_fields_order) do
-            local def = social_profile.registered_fields[field_name]
-            if not def.disallow_edit then
-                if changed then
-                    ctx.form[field_name] = nil
-
-                    if def.init_form then
-                        def.init_form(player, ctx)
-                    end
-                end
-
-                local value
-                if def.get_value then
-                    value = def.get_value(ctx.curr_name, profile)
-                else
-                    value = profile[field_name]
-                end
-
-                local row
-                if def.get_edit_row then
-                    row = def.get_edit_row(player, ctx, value)
-                else
-                    row = gui.Field {
-                        name = field_name,
-                        label = def.title or field_name,
-                        default = value
-                    }
-                end
-
-                edit_rows[#edit_rows + 1] = row
-            end
-        end
-
-        edit_rows[#edit_rows + 1] = gui.Button {
-            label = S("Save"),
-            w = 3, h = 1,
-            expand = true, align_h = "right",
-            on_event = function(e_player, e_ctx)
-                if social_profile.can_modify_profile(e_player:get_player_name(), e_ctx.curr_name) then
-                    local new_profile = {}
-                    for key, def in pairs(social_profile.registered_fields) do
-                        if not def.disallow_edit then
-                            local value
-                            if def.process_form then
-                                value = def.process_form(player, ctx)
-                            else
-                                value = string.trim(e_ctx.form[key])
-                            end
-
-                            if value == "" then
-                                value = nil
-                            end
-
-                            new_profile[key] = value
-                        end
-                    end
-                    social_profile.set_social_profile(e_ctx.curr_name, new_profile)
-                    e_ctx.tab = "view"
-                end
-                return true
-            end,
-        }
-
-        return gui.VBox(edit_rows)
     end,
     search = function(_, ctx)
         auth = auth or core.get_auth_handler()
