@@ -24,7 +24,7 @@ function social_profile.render_info(player, ctx, name)
                 value = profile[field_name]
             end
 
-            if (value ~= "" and value ~= nil) or def.show_on_value then
+            if (value ~= "" and value ~= nil) or def.show_on_no_value then
                 if value == nil then
                     value = ""
                 end
@@ -158,7 +158,7 @@ local tab_funcs = {
 
         info_rows.w = 7
 
-        local button_row = {}
+        local button_row = { expand = true, align_v = "bottom" }
         local button_width = 0
         for _, func in ipairs(social_profile.registered_buttons) do
             local button = func(player, ctx)
