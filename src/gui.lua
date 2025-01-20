@@ -437,9 +437,10 @@ local tab_funcs = {
                     end,
                 } or gui.Nil {},
             },
-            gui.Label {
+            errmsg ~= "" and gui.Label {
+                w = 7,
                 label = errmsg,
-            },
+            } or gui.Nil {},
         }
     end,
 }
