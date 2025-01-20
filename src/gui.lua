@@ -368,8 +368,13 @@ local tab_funcs = {
             matches[#matches + 1] = S("Type your search terms...")
         else
             for name in auth.iterate() do
-                if string.find(string.lower(name), ctx.form.search, nil, true) then
-                    matches[#matches + 1] = name
+                local lower_name = string.lower(name)
+                if string.find(lower_name, ctx.form.search, nil, true) then
+                    if lower_name == ctx.form.search then
+                        table.insert(matches, 1, name)
+                    else
+                        matches[#matches + 1] = name
+                    end
                 end
 
                 if #matches >= 100 then
